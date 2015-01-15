@@ -7,6 +7,7 @@
 //
 
 #import "BookListViewController.h"
+#import "BookInfoTableViewCell.h"
 
 @interface BookListViewController ()
 
@@ -17,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.title = @"Books";
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,13 +27,17 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"book"];
+    BookInfoTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"book"];
 
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"detail" sender:self];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return 1;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

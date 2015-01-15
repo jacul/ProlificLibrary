@@ -29,16 +29,34 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KLl-o1-E4n">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KLl-o1-E4n">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="book" id="VSO-5W-4cA">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="book" rowHeight="60" id="VSO-5W-4cA" customClass="BookInfoTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VSO-5W-4cA" id="OyV-MG-b0E">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Book Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRb-VR-cda">
+                                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Author" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aqb-Yv-m91">
+                                                    <rect key="frame" x="8" y="34" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="bookauthorLabel" destination="Aqb-Yv-m91" id="Hgi-qj-EcD"/>
+                                            <outlet property="booktitleLabel" destination="wRb-VR-cda" id="YlJ-b5-aAn"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -59,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="246" y="747"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Book View Controller-->
         <scene sceneID="Ly2-3w-NIO">
             <objects>
-                <viewController id="ZFo-nn-OyR" sceneMemberID="viewController">
+                <viewController id="ZFo-nn-OyR" customClass="AddBookViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sns-vC-CVA"/>
                         <viewControllerLayoutGuide type="bottom" id="vBg-7I-tTe"/>
@@ -75,7 +93,11 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Add Book" id="yEn-dD-qdF">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="m6C-jE-FQG"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="m6C-jE-FQG">
+                                            <connections>
+                                                <action selector="finishAddBook:" destination="ZFo-nn-OyR" id="YAT-G7-A2V"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -104,20 +126,29 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="clickSubmit:" destination="ZFo-nn-OyR" eventType="touchUpInside" id="Omr-D2-Uet"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="bookAuthorText" destination="mLM-t7-G1m" id="LUq-lK-aVT"/>
+                        <outlet property="bookCategoryText" destination="Noc-Yq-bEA" id="ncQ-aI-Dm6"/>
+                        <outlet property="bookPublisherText" destination="Jnk-FX-CRG" id="iPS-fg-xDt"/>
+                        <outlet property="bookTitleText" destination="W4Z-hP-oGK" id="O88-OF-4ZX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N6H-kc-nsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="781" y="1039"/>
+            <point key="canvasLocation" x="784" y="1039"/>
         </scene>
-        <!--View Controller-->
+        <!--Book Details View Controller-->
         <scene sceneID="ZJF-TM-Kfv">
             <objects>
-                <viewController id="WjM-Mo-Ahj" sceneMemberID="viewController">
+                <viewController id="WjM-Mo-Ahj" customClass="BookDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="brn-Mj-XdG"/>
                         <viewControllerLayoutGuide type="bottom" id="bb8-ON-nQY"/>
@@ -130,8 +161,16 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Detail" id="2Om-LK-B0G">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="v2G-BR-TsT"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="V9d-bG-ee4"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="v2G-BR-TsT">
+                                            <connections>
+                                                <action selector="closeView:" destination="WjM-Mo-Ahj" id="rFv-ef-pZu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="V9d-bG-ee4">
+                                            <connections>
+                                                <action selector="shareBookInfo:" destination="WjM-Mo-Ahj" id="eBj-de-nQb"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -140,6 +179,9 @@
                                 <state key="normal" title="Checkout">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="clickCheckout:" destination="WjM-Mo-Ahj" eventType="touchUpInside" id="HFU-qm-nVE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="az8-sv-68M">
                                 <rect key="frame" x="16" y="81" width="288" height="21"/>
