@@ -20,6 +20,9 @@
 		F73E00F31A67761D003224EC /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F11A67761D003224EC /* BookDetailsViewController.m */; };
 		F73E00F61A677629003224EC /* AddBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F51A677629003224EC /* AddBookViewController.m */; };
 		F73E00F71A677629003224EC /* AddBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F51A677629003224EC /* AddBookViewController.m */; };
+		F73E00FA1A677BB0003224EC /* BookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F91A677BB0003224EC /* BookManager.m */; };
+		F73E00FB1A677BB0003224EC /* BookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F91A677BB0003224EC /* BookManager.m */; };
+		F74161011A68B37800FDCDC6 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F74161001A68B37800FDCDC6 /* Book.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,10 @@
 		F73E00F11A67761D003224EC /* BookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailsViewController.m; sourceTree = "<group>"; };
 		F73E00F41A677629003224EC /* AddBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBookViewController.h; sourceTree = "<group>"; };
 		F73E00F51A677629003224EC /* AddBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBookViewController.m; sourceTree = "<group>"; };
+		F73E00F81A677BB0003224EC /* BookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookManager.h; sourceTree = "<group>"; };
+		F73E00F91A677BB0003224EC /* BookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookManager.m; sourceTree = "<group>"; };
+		F74160FF1A68B37800FDCDC6 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		F74161001A68B37800FDCDC6 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +105,10 @@
 				F73E00CD1A675F2F003224EC /* BookListViewController.h */,
 				F73E00CE1A675F2F003224EC /* BookListViewController.m */,
 				F73E00D01A675F2F003224EC /* Main.storyboard */,
+				F74160FF1A68B37800FDCDC6 /* Book.h */,
+				F74161001A68B37800FDCDC6 /* Book.m */,
+				F73E00F81A677BB0003224EC /* BookManager.h */,
+				F73E00F91A677BB0003224EC /* BookManager.m */,
 				F73E00EC1A6775C2003224EC /* BookInfoTableViewCell.h */,
 				F73E00ED1A6775C2003224EC /* BookInfoTableViewCell.m */,
 				F73E00F01A67761D003224EC /* BookDetailsViewController.h */,
@@ -239,6 +250,8 @@
 				F73E00EE1A6775C2003224EC /* BookInfoTableViewCell.m in Sources */,
 				F73E00F21A67761D003224EC /* BookDetailsViewController.m in Sources */,
 				F73E00CF1A675F2F003224EC /* BookListViewController.m in Sources */,
+				F73E00FA1A677BB0003224EC /* BookManager.m in Sources */,
+				F74161011A68B37800FDCDC6 /* Book.m in Sources */,
 				F73E00CC1A675F2F003224EC /* AppDelegate.m in Sources */,
 				F73E00C91A675F2F003224EC /* main.m in Sources */,
 				F73E00F61A677629003224EC /* AddBookViewController.m in Sources */,
@@ -249,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F73E00FB1A677BB0003224EC /* BookManager.m in Sources */,
 				F73E00EF1A6775C2003224EC /* BookInfoTableViewCell.m in Sources */,
 				F73E00F71A677629003224EC /* AddBookViewController.m in Sources */,
 				F73E00F31A67761D003224EC /* BookDetailsViewController.m in Sources */,
@@ -366,6 +380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = ProlificLibrary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -377,6 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = ProlificLibrary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

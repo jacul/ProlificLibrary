@@ -8,8 +8,12 @@
 
 #import "BookListViewController.h"
 #import "BookInfoTableViewCell.h"
+#import "BookManager.h"
+#import "Book.h"
 
-@interface BookListViewController ()
+@interface BookListViewController (){
+    NSArray* bookArray;
+}
 
 @end
 
@@ -18,8 +22,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-
+    __weak UITableView* weaktable = self.tableView;
+    [[BookManager instance] listBooks:^(NSString *response, NSArray *result) {
+        if ([response isEqualToString:CODE_SUCCESS]) {
+            bookArray = result;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (weaktable) {
+                    [weaktable reloadData];
+                }
+            });
+        }
+    }];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -28,7 +43,9 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookInfoTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"book"];
-
+    Book* book = bookArray[indexPath.row];
+    cell.booktitleLabel.text = book.title;
+    cell.bookauthorLabel.text = book.author;
     return cell;
 }
 
@@ -37,7 +54,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return bookArray.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
