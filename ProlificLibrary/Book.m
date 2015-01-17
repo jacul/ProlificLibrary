@@ -10,4 +10,8 @@
 
 @implementation Book
 
+-(NSString*)description{
+    
+    return [NSString stringWithFormat:@"Title: %@\nAuthor: %@\nCategories: %@\nPublisher:%@",self.title, self.author, self.categories, self.publisher];
+}
 @end

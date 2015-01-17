@@ -29,6 +29,11 @@
 }
 
 - (IBAction)shareBookInfo:(id)sender {
+
+    NSArray *itemsToShare = @[self.book.description];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+    activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll];
+    [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 - (IBAction)clickCheckout:(id)sender {
