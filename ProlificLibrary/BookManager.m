@@ -58,13 +58,7 @@ static BookManager* _instance;
             NSArray* bookCollection = (NSArray*)JSONData;
             for (NSDictionary* bookInDict in bookCollection) {
                 Book* book = [Book new];
-                book.author             = bookInDict[@"author"];
-                book.categories         = bookInDict[@"categories"];
-                book.lastCheckedOut     = bookInDict[@"lastCheckedOut"];
-                book.lastCheckedOutBy   = bookInDict[@"lastCheckedOutBy"];
-                book.publisher          = bookInDict[@"publisher"];
-                book.title              = bookInDict[@"title"];
-                book.url                = bookInDict[@"url"];
+                [book setBookInfoWithDict:bookInDict];
                 [arrayBooks addObject:book];
             }
         }
@@ -74,5 +68,35 @@ static BookManager* _instance;
     
 }
 
+-(void)fetchBook:(NSString *)bookURL onFinish:(finishAction)finish{
+    if (bookURL==nil) {
+        finish(@"ERROR", nil);
+        return;
+    }
+    NSURLRequest* request = [self createURLWithPath:bookURL Method:@"GET" Param:nil];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (finish==nil) {
+            return;
+        }
+        //Connection error occurs
+        if (connectionError) {
+            finish(connectionError.localizedDescription, nil);
+        }
+        NSError* error;
+        id JSONData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        
+        NSMutableArray* arrayBooks = [NSMutableArray new];
+        
+        if ([JSONData isKindOfClass:[NSDictionary class]])
+        {
+            Book* book = [Book new];
+            [book setBookInfoWithDict:(NSDictionary*)JSONData];
+            [arrayBooks addObject:book];
+        }
+        
+        finish(CODE_SUCCESS, [NSArray arrayWithArray:arrayBooks]);
+    }];
+}
 
 @end

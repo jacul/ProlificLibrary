@@ -10,6 +10,7 @@
 #import "BookInfoTableViewCell.h"
 #import "BookManager.h"
 #import "Book.h"
+#import "BookDetailsViewController.h"
 
 @interface BookListViewController (){
     NSArray* bookArray;
@@ -50,7 +51,14 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self performSegueWithIdentifier:@"detail" sender:self];
+    [self performSegueWithIdentifier:@"detail" sender:indexPath];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"detail"]) {
+        BookDetailsViewController* vc = segue.destinationViewController;
+        vc.book = [bookArray objectAtIndex: [(NSIndexPath*)sender row]];
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

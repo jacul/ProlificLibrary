@@ -18,4 +18,8 @@
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* url;
 
+/**
+ * Setup the book info with given dictionary.
+ */
+-(void)setBookInfoWithDict:(NSDictionary*)dict;
 @end

@@ -34,4 +34,9 @@ typedef void(^finishAction)(NSString* response, NSArray* result);
  */
 -(void)listBooks:(finishAction)finish;
 
+/**
+ * Retrieve a specific book's information.
+ */
+-(void)fetchBook:(NSString*)bookURL onFinish:(finishAction)finish;
+
 @end
