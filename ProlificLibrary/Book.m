@@ -7,6 +7,7 @@
 //
 
 #import "Book.h"
+#define nilOrJSONObjectForKey(JSON_, KEY_) [[JSON_ objectForKey:KEY_] isKindOfClass:[NSNull class]] ? nil : [JSON_ objectForKey:KEY_]
 
 @implementation Book
 
@@ -16,12 +17,12 @@
 }
 
 -(void)setBookInfoWithDict:(NSDictionary *)dict{
-    self.author             = dict[@"author"];
-    self.categories         = dict[@"categories"];
-    self.lastCheckedOut     = dict[@"lastCheckedOut"];
-    self.lastCheckedOutBy   = dict[@"lastCheckedOutBy"];
-    self.publisher          = [dict[@"publisher"] description];
-    self.title              = dict[@"title"];
-    self.url                = [dict[@"url"] description];
+    self.author             = nilOrJSONObjectForKey(dict, @"author");
+    self.categories         = nilOrJSONObjectForKey(dict, @"categories");
+    self.lastCheckedOut     = nilOrJSONObjectForKey(dict, @"lastCheckedOut");
+    self.lastCheckedOutBy   = nilOrJSONObjectForKey(dict, @"author");
+    self.publisher          = nilOrJSONObjectForKey(dict, @"publisher");
+    self.title              = nilOrJSONObjectForKey(dict, @"title");
+    self.url                = nilOrJSONObjectForKey(dict, @"url");
 }
 @end

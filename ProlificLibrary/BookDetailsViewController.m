@@ -49,6 +49,8 @@
     self.tagsLabel.text = self.book.categories;
     if (self.book.lastCheckedOut!=nil && self.book.lastCheckedOutBy!=nil) {
         self.nameDateLabel.text = [NSString stringWithFormat:@"%@ @ %@", self.book.lastCheckedOutBy, self.book.lastCheckedOut];
+    }else{
+        self.nameDateLabel.text = nil;
     }
 }
 
