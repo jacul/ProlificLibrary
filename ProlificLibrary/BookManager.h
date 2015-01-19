@@ -17,7 +17,7 @@
  * @para response Code of response, can be success or else.
  * @para result An array of Book instance.
  */
-typedef void(^finishAction)(NSString* response, NSArray* result);
+typedef void(^finishAction)(NSString* response, NSMutableArray* result);
 
 #define CODE_SUCCESS @"success"
 
@@ -45,4 +45,8 @@ typedef void(^finishAction)(NSString* response, NSArray* result);
  */
 -(void)addBookWithAuthor:(NSString*)author Tags:(NSString*)tags Title:(NSString*)title Publisher:(NSString*)publisher LastCheckout:(NSString*)checkOutBy onFinish:(finishAction)finish;
 
+/**
+ * Delete a book.
+ */
+-(void)deleteBook:(NSString*)bookURL onFinish:(finishAction)finish;
 @end

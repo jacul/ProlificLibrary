@@ -64,7 +64,7 @@ static BookManager* _instance;
             }
         }
         
-        finish(CODE_SUCCESS, [NSArray arrayWithArray:arrayBooks]);
+        finish(CODE_SUCCESS, arrayBooks);
     }];
     
 }
@@ -97,7 +97,7 @@ static BookManager* _instance;
             [arrayBooks addObject:book];
         }
         
-        finish(CODE_SUCCESS, [NSArray arrayWithArray:arrayBooks]);
+        finish(CODE_SUCCESS, arrayBooks);
     }];
 }
 
@@ -137,7 +137,35 @@ static BookManager* _instance;
             [arrayBooks addObject:book];
         }
         
-        finish(CODE_SUCCESS, [NSArray arrayWithArray:arrayBooks]);
+        finish(CODE_SUCCESS, arrayBooks);
+    }];
+}
+
+-(void)deleteBook:(NSString *)bookURL onFinish:(finishAction)finish{
+    if (bookURL==nil) {
+        finish(@"ERROR", nil);
+        return;
+    }
+    
+    NSURLRequest* request = [self createURLWithPath:bookURL Method:@"DELETE" Param:nil];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (finish==nil) {
+            return;
+        }
+        //Connection error occurs
+        if (connectionError) {
+            finish(connectionError.localizedDescription, nil);
+            return;
+        }
+        if ([(NSHTTPURLResponse*)response statusCode] == 204) {
+            
+            finish(CODE_SUCCESS, nil);
+        }else{
+            
+            finish(@"ERROR", nil);
+        }
+        
     }];
 }
 

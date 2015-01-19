@@ -13,7 +13,7 @@
 #import "BookDetailsViewController.h"
 
 @interface BookListViewController (){
-    NSArray* bookArray;
+    NSMutableArray* bookArray;
     BOOL bookListUpToDate;
 }
 
@@ -39,7 +39,7 @@
         return;
     }
     __weak UITableView* weaktable = self.tableView;
-    [[BookManager instance] listBooks:^(NSString *response, NSArray *result) {
+    [[BookManager instance] listBooks:^(NSString *response, NSMutableArray *result) {
         if ([response isEqualToString:CODE_SUCCESS]) {
             bookArray = result;
             bookListUpToDate = YES;
@@ -69,10 +69,14 @@
     [self performSegueWithIdentifier:@"detail" sender:indexPath];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"detail"]) {
-        BookDetailsViewController* vc = segue.destinationViewController;
-        vc.book = [bookArray objectAtIndex: [(NSIndexPath*)sender row]];
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        [[BookManager instance] deleteBook:[(Book*)bookArray[indexPath.row] url] onFinish:^(NSString *response, NSMutableArray *result) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [bookArray removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            });
+        }];
     }
 }
 
@@ -82,6 +86,13 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"detail"]) {
+        BookDetailsViewController* vc = segue.destinationViewController;
+        vc.book = [bookArray objectAtIndex: [(NSIndexPath*)sender row]];
+    }
 }
 
 -(void)updateLibraryListener:(NSNotification*)notification{
