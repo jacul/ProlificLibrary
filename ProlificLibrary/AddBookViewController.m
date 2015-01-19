@@ -37,7 +37,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if ([CODE_SUCCESS isEqualToString:response]) {
-                //Adding successfully                
+                //Adding successfully
+                //Notify the main screen
+                [[NSNotificationCenter defaultCenter] postNotificationName:MSG_BOOKSNEEDUPDATE object:nil];
                 //Close the view
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{

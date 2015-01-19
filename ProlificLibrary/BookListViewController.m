@@ -25,6 +25,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     bookListUpToDate = NO;//Needs update
+    
+    //Add listener for book changes
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLibraryListener:) name:MSG_BOOKSNEEDUPDATE object:nil];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -75,5 +82,9 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
+}
+
+-(void)updateLibraryListener:(NSNotification*)notification{
+    bookListUpToDate = NO;
 }
 @end
