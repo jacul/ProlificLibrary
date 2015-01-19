@@ -22,6 +22,7 @@
 		F73E00F71A677629003224EC /* AddBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F51A677629003224EC /* AddBookViewController.m */; };
 		F73E00FA1A677BB0003224EC /* BookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F91A677BB0003224EC /* BookManager.m */; };
 		F73E00FB1A677BB0003224EC /* BookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F73E00F91A677BB0003224EC /* BookManager.m */; };
+		F740890A1A6DB6E900B48C13 /* WaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74089091A6DB6E900B48C13 /* WaitingView.m */; };
 		F74161011A68B37800FDCDC6 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F74161001A68B37800FDCDC6 /* Book.m */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,8 @@
 		F73E00F51A677629003224EC /* AddBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBookViewController.m; sourceTree = "<group>"; };
 		F73E00F81A677BB0003224EC /* BookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookManager.h; sourceTree = "<group>"; };
 		F73E00F91A677BB0003224EC /* BookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookManager.m; sourceTree = "<group>"; };
+		F74089081A6DB6E900B48C13 /* WaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingView.h; sourceTree = "<group>"; };
+		F74089091A6DB6E900B48C13 /* WaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingView.m; sourceTree = "<group>"; };
 		F74160FF1A68B37800FDCDC6 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		F74161001A68B37800FDCDC6 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +118,8 @@
 				F73E00F11A67761D003224EC /* BookDetailsViewController.m */,
 				F73E00F41A677629003224EC /* AddBookViewController.h */,
 				F73E00F51A677629003224EC /* AddBookViewController.m */,
+				F74089081A6DB6E900B48C13 /* WaitingView.h */,
+				F74089091A6DB6E900B48C13 /* WaitingView.m */,
 				F73E00D31A675F2F003224EC /* Images.xcassets */,
 				F73E00D51A675F2F003224EC /* LaunchScreen.xib */,
 				F73E00C61A675F2F003224EC /* Supporting Files */,
@@ -251,6 +256,7 @@
 				F73E00F21A67761D003224EC /* BookDetailsViewController.m in Sources */,
 				F73E00CF1A675F2F003224EC /* BookListViewController.m in Sources */,
 				F73E00FA1A677BB0003224EC /* BookManager.m in Sources */,
+				F740890A1A6DB6E900B48C13 /* WaitingView.m in Sources */,
 				F74161011A68B37800FDCDC6 /* Book.m in Sources */,
 				F73E00CC1A675F2F003224EC /* AppDelegate.m in Sources */,
 				F73E00C91A675F2F003224EC /* main.m in Sources */,

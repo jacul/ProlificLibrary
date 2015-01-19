@@ -11,6 +11,7 @@
 #import "BookManager.h"
 #import "Book.h"
 #import "BookDetailsViewController.h"
+#import "WaitingView.h"
 
 @interface BookListViewController (){
     NSMutableArray* bookArray;
@@ -38,8 +39,14 @@
     if (bookListUpToDate) {//Already the latest info
         return;
     }
+    
+    [WaitingView showBlockIndicatorIn:self.view];
+    
     __weak UITableView* weaktable = self.tableView;
     [[BookManager instance] listBooks:^(NSString *response, NSMutableArray *result) {
+        
+        [WaitingView dismissCurrentIndicator];
+        
         if ([response isEqualToString:CODE_SUCCESS]) {
             bookArray = result;
             bookListUpToDate = YES;
@@ -49,6 +56,7 @@
                 }
             });
         }
+
     }];
 }
 
@@ -71,10 +79,18 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (UITableViewCellEditingStyleDelete == editingStyle) {
+        [WaitingView showBlockIndicatorIn:self.view];
+        
         [[BookManager instance] deleteBook:[(Book*)bookArray[indexPath.row] url] onFinish:^(NSString *response, NSMutableArray *result) {
+            
+            [WaitingView dismissCurrentIndicator];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [bookArray removeObjectAtIndex:indexPath.row];
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+                if ([response isEqualToString:CODE_SUCCESS]) {
+                    
+                    [bookArray removeObjectAtIndex:indexPath.row];
+                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+                }
             });
         }];
     }

@@ -8,6 +8,7 @@
 
 #import "BookDetailsViewController.h"
 #import "BookManager.h"
+#import "WaitingView.h"
 
 #define BOOK_NOTEXIST 400
 #define BOOK_CHECKOUT 200
@@ -26,8 +27,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     __weak BookDetailsViewController* weakself = self;
-    
+    [WaitingView showBlockIndicatorIn:self.view];
     [[BookManager instance] fetchBook:self.book.url onFinish:^(NSString *response, NSArray *result) {
+        [WaitingView dismissCurrentIndicator];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([response isEqualToString:CODE_SUCCESS] && result.count>0) {
                 
@@ -99,8 +102,11 @@
             formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss zzz";
             newBook.lastCheckedOut = [formatter stringFromDate:[NSDate date]];
             
+            [WaitingView showBlockIndicatorIn:self.view];
             __weak BookDetailsViewController* weakself = self;
             [[BookManager instance] updateBook:self.book withNewBook:newBook onFinish:^(NSString *response, NSMutableArray *result) {
+                [WaitingView dismissCurrentIndicator];
+                
                 if ([response isEqualToString:CODE_SUCCESS] && result.count>0) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (weakself) {

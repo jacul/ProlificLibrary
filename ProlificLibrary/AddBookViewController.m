@@ -9,6 +9,7 @@
 #import "AddBookViewController.h"
 #import "BookManager.h"
 #import "Book.h"
+#import "WaitingView.h"
 
 #define ASK_SAVE 100
 
@@ -42,7 +43,10 @@
     book.title = self.bookTitleText.text;
     book.publisher = self.bookPublisherText.text;
     
+    [WaitingView showBlockIndicatorIn:self.view];
     [manager addBook:book onFinish:^(NSString *response, NSArray *result) {
+        [WaitingView dismissCurrentIndicator];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if ([CODE_SUCCESS isEqualToString:response]) {
