@@ -14,6 +14,7 @@
 
 @interface BookListViewController (){
     NSArray* bookArray;
+    BOOL bookListUpToDate;
 }
 
 @end
@@ -23,10 +24,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    bookListUpToDate = NO;//Needs update
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if (bookListUpToDate) {//Already the latest info
+        return;
+    }
     __weak UITableView* weaktable = self.tableView;
     [[BookManager instance] listBooks:^(NSString *response, NSArray *result) {
         if ([response isEqualToString:CODE_SUCCESS]) {
             bookArray = result;
+            bookListUpToDate = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (weaktable) {
                     [weaktable reloadData];
@@ -35,7 +44,6 @@
         }
     }];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

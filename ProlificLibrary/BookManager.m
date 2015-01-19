@@ -46,6 +46,7 @@ static BookManager* _instance;
         //Connection error occurs
         if (connectionError) {
             finish(connectionError.localizedDescription, nil);
+            return;
         }
         
         NSError* error;
@@ -82,6 +83,7 @@ static BookManager* _instance;
         //Connection error occurs
         if (connectionError) {
             finish(connectionError.localizedDescription, nil);
+            return;
         }
         NSError* error;
         id JSONData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
@@ -97,6 +99,59 @@ static BookManager* _instance;
         
         finish(CODE_SUCCESS, [NSArray arrayWithArray:arrayBooks]);
     }];
+}
+
+-(void)addBookWithAuthor:(NSString *)author Tags:(NSString *)tags Title:(NSString *)title Publisher:(NSString *)publisher LastCheckout:(NSString *)checkOutBy onFinish:(finishAction)finish{
+    if (author.length==0 || title.length==0) {
+        finish(@"ERROR", nil);
+        return;
+    }
+    
+    NSMutableString* postStr = [NSMutableString new];
+    [postStr appendFormat:@"author=%@&", [self urlencode:author]];
+    [postStr appendFormat:@"categories=%@&", [self urlencode:tags]];
+    [postStr appendFormat:@"title=%@&", [self urlencode:title]];
+    [postStr appendFormat:@"publisher=%@&", [self urlencode:publisher]];
+    [postStr appendFormat:@"lastCheckedOutBy=%@", [self urlencode:checkOutBy]];
+    
+    NSURLRequest* request = [self createURLWithPath:@"/books/" Method:@"POST" Param:postStr];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (finish==nil) {
+            return;
+        }
+        //Connection error occurs
+        if (connectionError) {
+            finish(connectionError.localizedDescription, nil);
+            return;
+        }
+        NSError* error;
+        id JSONData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        
+        NSMutableArray* arrayBooks = [NSMutableArray new];
+        
+        if ([JSONData isKindOfClass:[NSDictionary class]])
+        {
+            Book* book = [Book new];
+            [book setBookInfoWithDict:(NSDictionary*)JSONData];
+            [arrayBooks addObject:book];
+        }
+        
+        finish(CODE_SUCCESS, [NSArray arrayWithArray:arrayBooks]);
+    }];
+}
+
+/**
+ * Helper function to url encode a string
+ */
+- (NSString *)urlencode:(NSString*)str {
+    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                  NULL,
+                                                                                  (CFStringRef)str,
+                                                                                  NULL,
+                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                  kCFStringEncodingUTF8 ));
+    return encodedString;
 }
 
 @end

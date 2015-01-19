@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define MSG_BOOKSNEEDUPDATE @"updatebooks"
 @class Book;
 
 /**
@@ -38,5 +39,10 @@ typedef void(^finishAction)(NSString* response, NSArray* result);
  * Retrieve a specific book's information.
  */
 -(void)fetchBook:(NSString*)bookURL onFinish:(finishAction)finish;
+
+/**
+ * Add a book to the library. The book information will be returned if added successfully.
+ */
+-(void)addBookWithAuthor:(NSString*)author Tags:(NSString*)tags Title:(NSString*)title Publisher:(NSString*)publisher LastCheckout:(NSString*)checkOutBy onFinish:(finishAction)finish;
 
 @end

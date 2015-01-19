@@ -7,6 +7,7 @@
 //
 
 #import "AddBookViewController.h"
+#import "BookManager.h"
 
 @interface AddBookViewController ()
 
@@ -25,6 +26,28 @@
 }
 
 - (IBAction)clickSubmit:(id)sender {
+    if (self.bookTitleText.text.length==0 || self.bookAuthorText.text.length==0) {
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Book title and/or author can't be empty" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+        return;
+    }
+    
+    BookManager* manager = [BookManager instance];
+    [manager addBookWithAuthor:self.bookAuthorText.text Tags:self.bookCategoryText.text Title:self.bookTitleText.text Publisher:self.bookPublisherText.text LastCheckout:@"" onFinish:^(NSString *response, NSArray *result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([CODE_SUCCESS isEqualToString:response]) {
+                //Adding successfully                
+                //Close the view
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }else{
+                //Adding book failed, alert the user
+                UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Adding book to library failed" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }
+        });
+
+    }];
 }
 
 - (IBAction)finishAddBook:(id)sender {
