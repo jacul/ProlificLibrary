@@ -9,7 +9,9 @@
 #import "AddBookViewController.h"
 #import "BookManager.h"
 
-@interface AddBookViewController ()
+#define ASK_SAVE 100
+
+@interface AddBookViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -53,7 +55,23 @@
 }
 
 - (IBAction)finishAddBook:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.bookTitleText.text.length!=0 || self.bookAuthorText.text.length!=0 || self.bookCategoryText.text.length!=0 || self.bookPublisherText.text.length!=0) {
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Unsaved book information" message:@"Are you sure to quit?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+        alert.tag = ASK_SAVE;
+        [alert show];
+        return;
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == ASK_SAVE) {
+        if (buttonIndex == alertView.firstOtherButtonIndex) {
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
 }
 
 /*
