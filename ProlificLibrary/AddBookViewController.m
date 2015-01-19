@@ -8,6 +8,7 @@
 
 #import "AddBookViewController.h"
 #import "BookManager.h"
+#import "Book.h"
 
 #define ASK_SAVE 100
 
@@ -35,7 +36,13 @@
     }
     
     BookManager* manager = [BookManager instance];
-    [manager addBookWithAuthor:self.bookAuthorText.text Tags:self.bookCategoryText.text Title:self.bookTitleText.text Publisher:self.bookPublisherText.text LastCheckout:@"" onFinish:^(NSString *response, NSArray *result) {
+    Book* book = [Book new];
+    book.author = self.bookAuthorText.text;
+    book.categories = self.bookCategoryText.text;
+    book.title = self.bookTitleText.text;
+    book.publisher = self.bookPublisherText.text;
+    
+    [manager addBook:book onFinish:^(NSString *response, NSArray *result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if ([CODE_SUCCESS isEqualToString:response]) {

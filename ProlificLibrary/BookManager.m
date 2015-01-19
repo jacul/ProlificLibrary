@@ -101,18 +101,18 @@ static BookManager* _instance;
     }];
 }
 
--(void)addBookWithAuthor:(NSString *)author Tags:(NSString *)tags Title:(NSString *)title Publisher:(NSString *)publisher LastCheckout:(NSString *)checkOutBy onFinish:(finishAction)finish{
-    if (author.length==0 || title.length==0) {
+-(void)addBook:(Book *)book onFinish:(finishAction)finish{
+    if (book == nil || book.author.length==0 || book.title.length==0) {
         finish(@"ERROR", nil);
         return;
     }
     
     NSMutableString* postStr = [NSMutableString new];
-    [postStr appendFormat:@"author=%@&", [self urlencode:author]];
-    [postStr appendFormat:@"categories=%@&", [self urlencode:tags]];
-    [postStr appendFormat:@"title=%@&", [self urlencode:title]];
-    [postStr appendFormat:@"publisher=%@&", [self urlencode:publisher]];
-    [postStr appendFormat:@"lastCheckedOutBy=%@", [self urlencode:checkOutBy]];
+    [postStr appendFormat:@"author=%@&", [self urlencode:book.author]];
+    [postStr appendFormat:@"categories=%@&", [self urlencode:book.categories]];
+    [postStr appendFormat:@"title=%@&", [self urlencode:book.title]];
+    [postStr appendFormat:@"publisher=%@&", [self urlencode:book.publisher]];
+    [postStr appendFormat:@"lastCheckedOutBy=%@", [self urlencode:book.lastCheckedOutBy]];
     
     NSURLRequest* request = [self createURLWithPath:@"/books/" Method:@"POST" Param:postStr];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -173,6 +173,9 @@ static BookManager* _instance;
  * Helper function to url encode a string
  */
 - (NSString *)urlencode:(NSString*)str {
+    if (str==nil) {
+        return @"";
+    }
     NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
                                                                                   NULL,
                                                                                   (CFStringRef)str,

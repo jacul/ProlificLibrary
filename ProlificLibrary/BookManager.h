@@ -43,7 +43,7 @@ typedef void(^finishAction)(NSString* response, NSMutableArray* result);
 /**
  * Add a book to the library. The book information will be returned if added successfully.
  */
--(void)addBookWithAuthor:(NSString*)author Tags:(NSString*)tags Title:(NSString*)title Publisher:(NSString*)publisher LastCheckout:(NSString*)checkOutBy onFinish:(finishAction)finish;
+-(void)addBook:(Book*)book onFinish:(finishAction)finish;
 
 /**
  * Delete a book.
