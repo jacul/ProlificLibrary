@@ -49,4 +49,9 @@ typedef void(^finishAction)(NSString* response, NSMutableArray* result);
  * Delete a book.
  */
 -(void)deleteBook:(NSString*)bookURL onFinish:(finishAction)finish;
+
+/**
+ * Update a book.
+ */
+-(void)updateBook:(Book*)oldBook withNewBook:(Book*)newBook onFinish:(finishAction)finish;
 @end

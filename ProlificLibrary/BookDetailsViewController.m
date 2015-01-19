@@ -10,6 +10,7 @@
 #import "BookManager.h"
 
 #define BOOK_NOTEXIST 400
+#define BOOK_CHECKOUT 200
 
 @interface BookDetailsViewController ()<UIAlertViewDelegate>
 
@@ -24,21 +25,23 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    __weak BookDetailsViewController* weakself = self;
+    
     [[BookManager instance] fetchBook:self.book.url onFinish:^(NSString *response, NSArray *result) {
-        if ([response isEqualToString:CODE_SUCCESS] && result.count>0) {
-            self.book = result[0];
-            __weak BookDetailsViewController* weakself = self;
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([response isEqualToString:CODE_SUCCESS] && result.count>0) {
+                
+                self.book = result[0];
                 if (weakself) {
                     [weakself loadBookInfo];
                 }
-            });
-        }else{
-            //Show alert and go back to main screen
-            UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Book doesn't exist!" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            alert.tag = BOOK_NOTEXIST;
-            [alert show];
-        }
+            }else{
+                //Show alert and go back to main screen
+                UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Book doesn't exist!" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                alert.tag = BOOK_NOTEXIST;
+                [alert show];
+            }
+        });
     }];
 }
 
@@ -72,12 +75,42 @@
 }
 
 - (IBAction)clickCheckout:(id)sender {
+    UIAlertView* askName = [[UIAlertView alloc]initWithTitle:@"Enter your name:" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    askName.alertViewStyle = UIAlertViewStylePlainTextInput;
+    askName.tag = BOOK_CHECKOUT;
+    [askName show];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (alertView.tag== BOOK_NOTEXIST) {
         //Quit this screen
         [self dismissViewControllerAnimated:YES completion:nil];
+    }else if(alertView.tag == BOOK_CHECKOUT){
+        if (buttonIndex ==  alertView.firstOtherButtonIndex) {
+            NSString* name = [alertView textFieldAtIndex:0].text;
+            if (name.length==0) {
+                //Didn't enter anything
+                name = @"Anonymous";
+            }
+            
+            Book* newBook = [Book new];
+            newBook.lastCheckedOutBy = name;
+            NSDateFormatter* formatter = [NSDateFormatter new];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss zzz";
+            newBook.lastCheckedOut = [formatter stringFromDate:[NSDate date]];
+            
+            __weak BookDetailsViewController* weakself = self;
+            [[BookManager instance] updateBook:self.book withNewBook:newBook onFinish:^(NSString *response, NSMutableArray *result) {
+                if ([response isEqualToString:CODE_SUCCESS] && result.count>0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (weakself) {
+                            weakself.book = result[0];
+                            [weakself loadBookInfo];
+                        }
+                    });
+                }
+            }];
+        }
     }
 }
 

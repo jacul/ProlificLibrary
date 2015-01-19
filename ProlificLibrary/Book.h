@@ -22,4 +22,10 @@
  * Setup the book info with given dictionary.
  */
 -(void)setBookInfoWithDict:(NSDictionary*)dict;
+
+/**
+ * Returns a string containing this book's information that is URL encoded.
+ * Note the url parameter is not included.
+ */
+-(NSString*)URLEncodedString;
 @end

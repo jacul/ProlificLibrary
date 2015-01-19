@@ -32,6 +32,7 @@ static BookManager* _instance;
     [request setHTTPMethod:httpMethod];
     if (param) {
         [request setHTTPBody:[param dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
     return request;
 }
@@ -49,20 +50,7 @@ static BookManager* _instance;
             return;
         }
         
-        NSError* error;
-        id JSONData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-        
-        NSMutableArray* arrayBooks = [NSMutableArray new];
-        
-        if ([JSONData isKindOfClass:[NSArray class]])
-        {
-            NSArray* bookCollection = (NSArray*)JSONData;
-            for (NSDictionary* bookInDict in bookCollection) {
-                Book* book = [Book new];
-                [book setBookInfoWithDict:bookInDict];
-                [arrayBooks addObject:book];
-            }
-        }
+        NSMutableArray* arrayBooks = [self retrieveBooksInfoFromJSONData:data];
         
         finish(CODE_SUCCESS, arrayBooks);
     }];
@@ -85,17 +73,8 @@ static BookManager* _instance;
             finish(connectionError.localizedDescription, nil);
             return;
         }
-        NSError* error;
-        id JSONData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
-        NSMutableArray* arrayBooks = [NSMutableArray new];
-        
-        if ([JSONData isKindOfClass:[NSDictionary class]])
-        {
-            Book* book = [Book new];
-            [book setBookInfoWithDict:(NSDictionary*)JSONData];
-            [arrayBooks addObject:book];
-        }
+        NSMutableArray* arrayBooks = [self retrieveBooksInfoFromJSONData:data];
         
         finish(CODE_SUCCESS, arrayBooks);
     }];
@@ -107,13 +86,7 @@ static BookManager* _instance;
         return;
     }
     
-    NSMutableString* postStr = [NSMutableString new];
-    [postStr appendFormat:@"author=%@&", [self urlencode:book.author]];
-    [postStr appendFormat:@"categories=%@&", [self urlencode:book.categories]];
-    [postStr appendFormat:@"title=%@&", [self urlencode:book.title]];
-    [postStr appendFormat:@"publisher=%@&", [self urlencode:book.publisher]];
-    [postStr appendFormat:@"lastCheckedOutBy=%@", [self urlencode:book.lastCheckedOutBy]];
-    
+    NSString* postStr = [book URLEncodedString];
     NSURLRequest* request = [self createURLWithPath:@"/books/" Method:@"POST" Param:postStr];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
@@ -125,17 +98,8 @@ static BookManager* _instance;
             finish(connectionError.localizedDescription, nil);
             return;
         }
-        NSError* error;
-        id JSONData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
-        NSMutableArray* arrayBooks = [NSMutableArray new];
-        
-        if ([JSONData isKindOfClass:[NSDictionary class]])
-        {
-            Book* book = [Book new];
-            [book setBookInfoWithDict:(NSDictionary*)JSONData];
-            [arrayBooks addObject:book];
-        }
+        NSMutableArray* arrayBooks = [self retrieveBooksInfoFromJSONData:data];
         
         finish(CODE_SUCCESS, arrayBooks);
     }];
@@ -169,20 +133,58 @@ static BookManager* _instance;
     }];
 }
 
-/**
- * Helper function to url encode a string
- */
-- (NSString *)urlencode:(NSString*)str {
-    if (str==nil) {
-        return @"";
+-(void)updateBook:(Book *)oldBook withNewBook:(Book *)newBook onFinish:(finishAction)finish{
+    if (oldBook == nil || newBook == nil || oldBook.url == nil) {
+        finish(@"ERROR", nil);
+        return;
     }
-    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                  NULL,
-                                                                                  (CFStringRef)str,
-                                                                                  NULL,
-                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                  kCFStringEncodingUTF8 ));
-    return encodedString;
+    
+    NSString* postStr = [newBook URLEncodedString];
+    NSURLRequest* request = [self createURLWithPath: oldBook.url Method:@"PUT" Param:postStr];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (finish==nil) {
+            return;
+        }
+        //Connection error occurs
+        if (connectionError) {
+            finish(connectionError.localizedDescription, nil);
+            return;
+        }
+        
+        NSMutableArray* arrayBooks = [self retrieveBooksInfoFromJSONData:data];
+        
+        finish(CODE_SUCCESS, arrayBooks);
+        
+    }];
+    
+}
+
+/**
+ * Create an array of Book from JSON data.
+ * If the given data is not valid, an empty array will be returned.
+ */
+-(NSMutableArray*)retrieveBooksInfoFromJSONData:(NSData*)jsondata{
+    NSError* error;
+    id JSONData = [NSJSONSerialization JSONObjectWithData:jsondata options:NSJSONReadingAllowFragments error:&error];
+
+    NSMutableArray* arrayBooks = [NSMutableArray new];
+    
+    if ([JSONData isKindOfClass:[NSDictionary class]])
+    {
+        Book* book = [Book new];
+        [book setBookInfoWithDict:(NSDictionary*)JSONData];
+        [arrayBooks addObject:book];
+    }else if ([JSONData isKindOfClass:[NSArray class]])
+    {
+        NSArray* bookCollection = (NSArray*)JSONData;
+        for (NSDictionary* bookInDict in bookCollection) {
+            Book* book = [Book new];
+            [book setBookInfoWithDict:bookInDict];
+            [arrayBooks addObject:book];
+        }
+    }
+    return arrayBooks;
 }
 
 @end
