@@ -13,11 +13,13 @@
 #import "BookDetailsViewController.h"
 #import "WaitingView.h"
 #import "RootViewController.h"
+#import "ODRefreshControl.h"
 
 @interface BookListViewController (){
     NSMutableArray* bookArray;
 
 }
+@property (nonatomic, strong) ODRefreshControl* refreshControl;
 
 @end
 
@@ -31,6 +33,11 @@
     
     //Add listener for book changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLibraryListener:) name:MSG_BOOKSNEEDUPDATE object:nil];
+    
+    //Add drag to refresh function
+    self.refreshControl = [[ODRefreshControl alloc]initInScrollView:self.tableView];
+    self.refreshControl.tintColor = [UIColor colorWithRed:46.0/255 green:172.0/255 blue:247.0/255 alpha:1];
+    [self.refreshControl addTarget:self action:@selector(dragToRefreshAction:) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)dealloc{
@@ -118,5 +125,23 @@
 #pragma mark Listener for book update
 -(void)updateLibraryListener:(NSNotification*)notification{
     [self updateLibrary];
+}
+
+-(void)dragToRefreshAction:(id)sender{
+
+    __weak BookListViewController* weakself = self;
+    [[BookManager instance] listBooks:^(NSString *response, NSMutableArray *result) {
+        
+        if ([response isEqualToString:CODE_SUCCESS]) {
+            bookArray = result;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (weakself) {
+                    [weakself.refreshControl endRefreshing];
+                    [weakself.tableView reloadData];
+                }
+            });
+        }
+        
+    }];
 }
 @end

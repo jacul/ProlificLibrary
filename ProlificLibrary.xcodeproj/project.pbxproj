@@ -26,6 +26,7 @@
 		F74161011A68B37800FDCDC6 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F74161001A68B37800FDCDC6 /* Book.m */; };
 		F749CAC41A6DF0CD001A86F5 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CAC31A6DF0CD001A86F5 /* RootViewController.m */; };
 		F749CAC71A6DF261001A86F5 /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CAC61A6DF261001A86F5 /* SideMenuViewController.m */; };
+		F749CACA1A6E094F001A86F5 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CAC91A6E094F001A86F5 /* ODRefreshControl.m */; };
 		FDB6208643987CAA3EF46AE2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D27F06FCB90B8B2F0ABE5DE7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,8 @@
 		F749CAC31A6DF0CD001A86F5 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		F749CAC51A6DF261001A86F5 /* SideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenuViewController.h; sourceTree = "<group>"; };
 		F749CAC61A6DF261001A86F5 /* SideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuViewController.m; sourceTree = "<group>"; };
+		F749CAC81A6E094F001A86F5 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		F749CAC91A6E094F001A86F5 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 		F73E00C51A675F2F003224EC /* ProlificLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				F749CAC81A6E094F001A86F5 /* ODRefreshControl.h */,
+				F749CAC91A6E094F001A86F5 /* ODRefreshControl.m */,
 				F73E00CA1A675F2F003224EC /* AppDelegate.h */,
 				F73E00CB1A675F2F003224EC /* AppDelegate.m */,
 				F749CAC21A6DF0CD001A86F5 /* RootViewController.h */,
@@ -325,6 +330,7 @@
 				F73E00F21A67761D003224EC /* BookDetailsViewController.m in Sources */,
 				F73E00CF1A675F2F003224EC /* BookListViewController.m in Sources */,
 				F73E00FA1A677BB0003224EC /* BookManager.m in Sources */,
+				F749CACA1A6E094F001A86F5 /* ODRefreshControl.m in Sources */,
 				F749CAC41A6DF0CD001A86F5 /* RootViewController.m in Sources */,
 				F740890A1A6DB6E900B48C13 /* WaitingView.m in Sources */,
 				F74161011A68B37800FDCDC6 /* Book.m in Sources */,
