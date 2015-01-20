@@ -2,11 +2,11 @@
 A simple library management app to list and manage the books in the library.
 
 ##Functions
-List books
-Add book
-Edit book
-Check out a book
-Delete book/all books
+* List books
+* Add book
+* Edit book
+* Check out a book
+* Delete book/all books
 
 ##Program flow:
 
@@ -65,5 +65,6 @@ Delete book/all books
     
 ##Thrid party libraries
 
-ODRefreshControl
-RESideMenu
+* ODRefreshControl
+
+* RESideMenu
