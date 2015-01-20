@@ -54,4 +54,10 @@ typedef void(^finishAction)(NSString* response, NSMutableArray* result);
  * Update a book.
  */
 -(void)updateBook:(Book*)oldBook withNewBook:(Book*)newBook onFinish:(finishAction)finish;
+
+/**
+ * Delete all books.
+ * Use with caution.
+ */
+-(void)deleteAll:(finishAction)finish;
 @end

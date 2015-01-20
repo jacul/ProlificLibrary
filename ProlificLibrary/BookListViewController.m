@@ -12,10 +12,11 @@
 #import "Book.h"
 #import "BookDetailsViewController.h"
 #import "WaitingView.h"
+#import "RootViewController.h"
 
 @interface BookListViewController (){
     NSMutableArray* bookArray;
-    BOOL bookListUpToDate;
+
 }
 
 @end
@@ -25,7 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    bookListUpToDate = NO;//Needs update
+    
+    [self updateLibrary];
     
     //Add listener for book changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLibraryListener:) name:MSG_BOOKSNEEDUPDATE object:nil];
@@ -35,11 +37,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    if (bookListUpToDate) {//Already the latest info
-        return;
-    }
-    
+-(void)updateLibrary{
+
     [WaitingView showBlockIndicatorIn:self.view];
     
     __weak UITableView* weaktable = self.tableView;
@@ -49,7 +48,6 @@
         
         if ([response isEqualToString:CODE_SUCCESS]) {
             bookArray = result;
-            bookListUpToDate = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (weaktable) {
                     [weaktable reloadData];
@@ -65,6 +63,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Open the side menu
+- (IBAction)openMenu:(id)sender {
+    [RootViewController showSideMenu];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookInfoTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"book"];
     Book* book = bookArray[indexPath.row];
@@ -74,6 +77,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     [self performSegueWithIdentifier:@"detail" sender:indexPath];
 }
 
@@ -111,7 +115,8 @@
     }
 }
 
+#pragma mark Listener for book update
 -(void)updateLibraryListener:(NSNotification*)notification{
-    bookListUpToDate = NO;
+    [self updateLibrary];
 }
 @end

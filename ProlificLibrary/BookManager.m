@@ -160,6 +160,29 @@ static BookManager* _instance;
     
 }
 
+-(void)deleteAll:(finishAction)finish{
+    NSURLRequest* request = [self createURLWithPath:@"/clean" Method:@"DELETE" Param:nil];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (finish==nil) {
+            return;
+        }
+        //Connection error occurs
+        if (connectionError) {
+            finish(connectionError.localizedDescription, nil);
+            return;
+        }
+        if ([(NSHTTPURLResponse*)response statusCode] == 200) {
+            
+            finish(CODE_SUCCESS, nil);
+        }else{
+            
+            finish(@"ERROR", nil);
+        }
+        
+    }];
+}
+
 /**
  * Create an array of Book from JSON data.
  * If the given data is not valid, an empty array will be returned.
