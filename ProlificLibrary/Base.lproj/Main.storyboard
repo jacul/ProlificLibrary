@@ -145,7 +145,7 @@
                         <viewControllerLayoutGuide type="top" id="sns-vC-CVA"/>
                         <viewControllerLayoutGuide type="bottom" id="vBg-7I-tTe"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qdQ-yz-fNV">
+                    <view key="view" contentMode="scaleToFill" id="qdQ-yz-fNV" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -212,6 +212,9 @@
                             <constraint firstItem="Noc-Yq-bEA" firstAttribute="leading" secondItem="qdQ-yz-fNV" secondAttribute="leadingMargin" id="xue-gf-04G"/>
                             <constraint firstItem="lIj-5h-w1L" firstAttribute="leading" secondItem="qdQ-yz-fNV" secondAttribute="leadingMargin" constant="37" id="zex-00-eix"/>
                         </constraints>
+                        <connections>
+                            <action selector="clickBackground:" destination="ZFo-nn-OyR" eventType="touchUpInside" id="DaP-6T-YiL"/>
+                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -468,7 +471,7 @@
                         <viewControllerLayoutGuide type="top" id="d1X-Hl-xXe"/>
                         <viewControllerLayoutGuide type="bottom" id="VXO-gT-xXi"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="v0o-Fz-Kop">
+                    <view key="view" contentMode="scaleToFill" id="v0o-Fz-Kop" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -535,6 +538,9 @@
                             <constraint firstItem="eMF-PS-nuz" firstAttribute="leading" secondItem="SxY-8B-UTO" secondAttribute="leading" id="sQW-vd-ZiJ"/>
                             <constraint firstItem="eMF-PS-nuz" firstAttribute="top" secondItem="7uS-gS-ery" secondAttribute="bottom" constant="24" id="yBK-Jr-VRh"/>
                         </constraints>
+                        <connections>
+                            <action selector="clickBackground:" destination="Xa8-lV-52T" eventType="touchUpInside" id="wDu-MA-NjC"/>
+                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>

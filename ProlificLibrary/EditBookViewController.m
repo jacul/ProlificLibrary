@@ -51,6 +51,10 @@
     }
 }
 
+- (IBAction)clickBackground:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (IBAction)clickSubmit:(id)sender {
     [self.view endEditing:YES];
     

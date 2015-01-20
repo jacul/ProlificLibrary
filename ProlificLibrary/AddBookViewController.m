@@ -29,7 +29,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)clickBackground:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (IBAction)clickSubmit:(id)sender {
+    [self.view endEditing:YES];
     if (self.bookTitleText.text.length==0 || self.bookAuthorText.text.length==0) {
         UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Book title and/or author can't be empty" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
