@@ -162,7 +162,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Add Book" id="yEn-dD-qdF">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="m6C-jE-FQG">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="m6C-jE-FQG">
                                             <connections>
                                                 <action selector="finishAddBook:" destination="ZFo-nn-OyR" id="YAT-G7-A2V"/>
                                             </connections>
@@ -398,6 +398,15 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JSl-rz-XRb">
+                                <rect key="frame" x="137" y="392" width="46" height="30"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickEdit:" destination="WjM-Mo-Ahj" eventType="touchUpInside" id="yIG-6F-uJq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -451,11 +460,100 @@
                         <outlet property="publisherLabel" destination="hWj-A6-1mA" id="Zv4-R8-d0F"/>
                         <outlet property="tagsLabel" destination="SMT-it-MUa" id="WNE-tC-qWp"/>
                         <outlet property="titleLabel" destination="az8-sv-68M" id="VkS-og-a0c"/>
+                        <segue destination="Xa8-lV-52T" kind="show" identifier="edit" id="UH1-9Z-0Lj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsD-px-7Hc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="784" y="397"/>
+        </scene>
+        <!--Edit Book View Controller-->
+        <scene sceneID="4Qz-B5-Rsp">
+            <objects>
+                <viewController storyboardIdentifier="edit" id="Xa8-lV-52T" customClass="EditBookViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d1X-Hl-xXe"/>
+                        <viewControllerLayoutGuide type="bottom" id="VXO-gT-xXi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v0o-Fz-Kop">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Book Title" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eMF-PS-nuz">
+                                <rect key="frame" x="16" y="96" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Author" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SxY-8B-UTO">
+                                <rect key="frame" x="16" y="151" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Publisher" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YLQ-Yw-Xjs">
+                                <rect key="frame" x="16" y="206" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Categories" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6UN-Mh-qBK">
+                                <rect key="frame" x="16" y="261" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7uS-gS-ery">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Edit Book" id="aMn-XK-FcL">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="ImR-Ru-XHW">
+                                            <connections>
+                                                <action selector="clickDone:" destination="Xa8-lV-52T" id="Y6s-eR-RAM"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ApP-wx-111">
+                                <rect key="frame" x="53" y="320" width="214" height="30"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickSubmit:" destination="Xa8-lV-52T" eventType="touchUpInside" id="7Bh-hP-RUH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ApP-wx-111" firstAttribute="top" secondItem="6UN-Mh-qBK" secondAttribute="bottom" constant="29" id="7cg-Og-fbw"/>
+                            <constraint firstItem="SxY-8B-UTO" firstAttribute="trailing" secondItem="YLQ-Yw-Xjs" secondAttribute="trailing" id="CLl-iF-p47"/>
+                            <constraint firstItem="7uS-gS-ery" firstAttribute="top" secondItem="d1X-Hl-xXe" secondAttribute="bottom" constant="8" id="Ccc-dg-JRn"/>
+                            <constraint firstItem="eMF-PS-nuz" firstAttribute="leading" secondItem="v0o-Fz-Kop" secondAttribute="leadingMargin" id="I2B-Pq-B5N"/>
+                            <constraint firstAttribute="trailing" secondItem="7uS-gS-ery" secondAttribute="trailing" id="J7W-5M-aw3"/>
+                            <constraint firstItem="6UN-Mh-qBK" firstAttribute="top" secondItem="YLQ-Yw-Xjs" secondAttribute="bottom" constant="25" id="KIH-n1-4XE"/>
+                            <constraint firstItem="7uS-gS-ery" firstAttribute="leading" secondItem="v0o-Fz-Kop" secondAttribute="leading" id="Omw-bC-tvk"/>
+                            <constraint firstItem="ApP-wx-111" firstAttribute="leading" secondItem="v0o-Fz-Kop" secondAttribute="leadingMargin" constant="37" id="RyE-a0-mdC"/>
+                            <constraint firstItem="SxY-8B-UTO" firstAttribute="leading" secondItem="YLQ-Yw-Xjs" secondAttribute="leading" id="S3X-oE-m5S"/>
+                            <constraint firstItem="7uS-gS-ery" firstAttribute="centerX" secondItem="eMF-PS-nuz" secondAttribute="centerX" id="SRB-Sw-oyq"/>
+                            <constraint firstItem="6UN-Mh-qBK" firstAttribute="centerX" secondItem="ApP-wx-111" secondAttribute="centerX" id="aWS-RP-lxR"/>
+                            <constraint firstItem="YLQ-Yw-Xjs" firstAttribute="top" secondItem="SxY-8B-UTO" secondAttribute="bottom" constant="25" id="fG5-ki-8bN"/>
+                            <constraint firstItem="YLQ-Yw-Xjs" firstAttribute="leading" secondItem="6UN-Mh-qBK" secondAttribute="leading" id="fzl-YC-gv6"/>
+                            <constraint firstItem="eMF-PS-nuz" firstAttribute="trailing" secondItem="SxY-8B-UTO" secondAttribute="trailing" id="gLm-5r-7t1"/>
+                            <constraint firstItem="6UN-Mh-qBK" firstAttribute="trailing" secondItem="YLQ-Yw-Xjs" secondAttribute="trailing" id="kxQ-5P-tTH"/>
+                            <constraint firstItem="SxY-8B-UTO" firstAttribute="top" secondItem="eMF-PS-nuz" secondAttribute="bottom" constant="25" id="mRc-r6-AFV"/>
+                            <constraint firstItem="eMF-PS-nuz" firstAttribute="leading" secondItem="SxY-8B-UTO" secondAttribute="leading" id="sQW-vd-ZiJ"/>
+                            <constraint firstItem="eMF-PS-nuz" firstAttribute="top" secondItem="7uS-gS-ery" secondAttribute="bottom" constant="24" id="yBK-Jr-VRh"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="bookAuthorText" destination="SxY-8B-UTO" id="kh0-US-TYI"/>
+                        <outlet property="bookCategoryText" destination="6UN-Mh-qBK" id="s4b-OI-DYx"/>
+                        <outlet property="bookPublisherText" destination="YLQ-Yw-Xjs" id="GEe-KK-2Ke"/>
+                        <outlet property="bookTitleText" destination="eMF-PS-nuz" id="w8d-OK-3lU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lTu-3p-zZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1206" y="397"/>
         </scene>
     </scenes>
 </document>

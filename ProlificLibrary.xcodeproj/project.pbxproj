@@ -27,6 +27,7 @@
 		F749CAC41A6DF0CD001A86F5 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CAC31A6DF0CD001A86F5 /* RootViewController.m */; };
 		F749CAC71A6DF261001A86F5 /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CAC61A6DF261001A86F5 /* SideMenuViewController.m */; };
 		F749CACA1A6E094F001A86F5 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CAC91A6E094F001A86F5 /* ODRefreshControl.m */; };
+		F749CACD1A6E0F86001A86F5 /* EditBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F749CACC1A6E0F86001A86F5 /* EditBookViewController.m */; };
 		FDB6208643987CAA3EF46AE2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D27F06FCB90B8B2F0ABE5DE7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,8 @@
 		F749CAC61A6DF261001A86F5 /* SideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuViewController.m; sourceTree = "<group>"; };
 		F749CAC81A6E094F001A86F5 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		F749CAC91A6E094F001A86F5 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		F749CACB1A6E0F86001A86F5 /* EditBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditBookViewController.h; sourceTree = "<group>"; };
+		F749CACC1A6E0F86001A86F5 /* EditBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditBookViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +160,8 @@
 				F73E00F11A67761D003224EC /* BookDetailsViewController.m */,
 				F73E00F41A677629003224EC /* AddBookViewController.h */,
 				F73E00F51A677629003224EC /* AddBookViewController.m */,
+				F749CACB1A6E0F86001A86F5 /* EditBookViewController.h */,
+				F749CACC1A6E0F86001A86F5 /* EditBookViewController.m */,
 				F74089081A6DB6E900B48C13 /* WaitingView.h */,
 				F74089091A6DB6E900B48C13 /* WaitingView.m */,
 				F73E00D31A675F2F003224EC /* Images.xcassets */,
@@ -337,6 +342,7 @@
 				F73E00CC1A675F2F003224EC /* AppDelegate.m in Sources */,
 				F73E00C91A675F2F003224EC /* main.m in Sources */,
 				F73E00F61A677629003224EC /* AddBookViewController.m in Sources */,
+				F749CACD1A6E0F86001A86F5 /* EditBookViewController.m in Sources */,
 				F749CAC71A6DF261001A86F5 /* SideMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

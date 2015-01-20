@@ -9,6 +9,7 @@
 #import "BookDetailsViewController.h"
 #import "BookManager.h"
 #import "WaitingView.h"
+#import "EditBookViewController.h"
 
 #define BOOK_NOTEXIST 400
 #define BOOK_CHECKOUT 200
@@ -22,7 +23,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    //Listener for book change
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listenerForBookChange:) name:MSG_BOOKSNEEDUPDATE object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -84,6 +87,10 @@
     [askName show];
 }
 
+- (IBAction)clickEdit:(id)sender {
+    [self performSegueWithIdentifier:@"edit" sender:self];
+}
+
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (alertView.tag== BOOK_NOTEXIST) {
         //Quit this screen
@@ -120,14 +127,23 @@
     }
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"edit"]) {
+        [(EditBookViewController*)segue.destinationViewController setBook:self.book];
+    }
+    
 }
-*/
+
+-(void)listenerForBookChange:(NSNotification*)notification{
+    if ([notification.object isKindOfClass:[Book class]]) {
+        self.book = (Book*)notification.object;
+        [self loadBookInfo];
+    }
+}
 
 @end
