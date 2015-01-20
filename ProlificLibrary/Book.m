@@ -13,7 +13,7 @@
 
 -(NSString*)description{
     
-    return [self URLEncodedString];
+    return [NSString stringWithFormat:@"Title: %@\nAuthor: %@\nCategories: %@\nPublisher:%@",self.title, self.author, self.categories, self.publisher];
 }
 
 -(void)setBookInfoWithDict:(NSDictionary *)dict{
