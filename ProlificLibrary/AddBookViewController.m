@@ -13,7 +13,7 @@
 
 #define ASK_SAVE 100
 
-@interface AddBookViewController ()<UIAlertViewDelegate>
+@interface AddBookViewController ()<UIAlertViewDelegate, UITextFieldDelegate>
 
 @end
 
@@ -90,6 +90,22 @@
     }
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == self.bookTitleText) {
+        [self.bookAuthorText becomeFirstResponder];
+        
+    }else if (textField == self.bookAuthorText){
+        [self.bookPublisherText becomeFirstResponder];
+        
+    }else if(textField == self.bookPublisherText){
+        [self.bookCategoryText becomeFirstResponder];
+        
+    }else if(textField == self.bookCategoryText){
+        [self clickSubmit:textField];
+        
+    }
+    return YES;
+}
 /*
 #pragma mark - Navigation
 
